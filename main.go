@@ -8,6 +8,6 @@ import (
 )
 
 func main() {
-	fmt.Print(ansiescape.PrevLine(1))
-	_, _ = input.ReadRune()
+	fmt.Println(ansiescape.Bold, "TEST", ansiescape.ResetFont)
+	_, _ = input.ReadLine()
 }
