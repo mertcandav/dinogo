@@ -13,9 +13,9 @@ func ReadRune() (rune, error) {
 			return 0, err
 		}
 		switch key {
-		case 9: // tab
+		case keyboard.KeyTab:
 			r = '\t'
-		case 32: // space
+		case keyboard.KeySpace:
 			r = ' '
 		}
 		if r >= 0 {
