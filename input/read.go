@@ -1,11 +1,14 @@
 package input
 
 import (
+	"fmt"
+
 	"github.com/mertcandav/dinogo/keyboard"
 )
 
 // ReadRune reads one char from command line
 // without press enter.
+// Not printed pressed rune to cli.
 //
 // Special case is:
 // ReadRune() pressed enter if 'rune' is zero
@@ -23,8 +26,26 @@ func ReadRune() (rune, error) {
 		case keyboard.KeyEnter:
 			return rune(0), nil
 		}
-		if r >= 0 {
+		if r != 0 {
 			return r, nil
 		}
 	}
+}
+
+// ReadLine reads line from command line.
+// No supports remove, moving. Only get rune input.
+func ReadLine() ([]rune, error) {
+	var runes []rune
+	for {
+		r, err := ReadRune()
+		if err != nil {
+			return nil, err
+		}
+		if r == 0 {
+			break
+		}
+		fmt.Print(string(r))
+		runes = append(runes, r)
+	}
+	return runes, nil
 }

@@ -3,11 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/mertcandav/dinogo/input"
+	"github.com/mertcandav/dinogo/ansiescape"
 )
 
 func main() {
-	fmt.Print("Input: ")
-	r, _ := input.ReadRune()
-	fmt.Println(string(r))
+	fmt.Print(ansiescape.ClearScreen)
 }
