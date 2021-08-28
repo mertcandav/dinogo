@@ -11,7 +11,7 @@ import (
 // Not printed pressed rune to cli.
 //
 // Special case is:
-// ReadRune() pressed enter if 'rune' is zero
+// ReadRune() 'rune' is zero if pressed enter
 func ReadRune() (rune, error) {
 	for {
 		r, key, err := keyboard.GetSingleKey()
