@@ -1,7 +1,7 @@
 package input
 
 import (
-	"github.com/eiannone/keyboard"
+	"github.com/mertcandav/dinogo/keyboard"
 )
 
 // ReadRune reads one char from command line
