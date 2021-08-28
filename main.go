@@ -3,11 +3,12 @@ package main
 import (
 	"fmt"
 
-	"github.com/mertcandav/dinogo/ansiescape"
 	"github.com/mertcandav/dinogo/input"
+	"github.com/mertcandav/dinogo/terminal"
 )
 
 func main() {
-	fmt.Println(ansiescape.Bold, "TEST", ansiescape.ResetFont)
+	terminal.ForegroundByRGB(255, 0, 0)
+	fmt.Println("TEST")
 	_, _ = input.ReadLine()
 }

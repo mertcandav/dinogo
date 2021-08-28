@@ -46,7 +46,7 @@ func SetColumn(n int) string {
 	return fmt.Sprintf("\u001b[%dG", n)
 }
 
-// SetPosition returns sequence for puts the cursor at line and column.
+// SetPosition returns sequence for put the cursor at line and column.
 func SetPosition(line, column int) string {
 	return fmt.Sprintf("\033[%d;%dH", line, column)
 }
