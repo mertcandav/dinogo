@@ -2,7 +2,7 @@ package ansiescape
 
 const (
 	// ClearLine clears entire line.
-	ClearLin = "\u001b[2K"
+	ClearLine = "\u001b[2K"
 	// ClearLineCB clears from cursor to start of line.
 	ClearLineCB = "\u001b[1K"
 	// ClearLineCE clears from cursor to end of line.
