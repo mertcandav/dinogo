@@ -204,12 +204,10 @@ func GetKey() (rune, Key, error) {
 		return 0, 0, errors.New("already waiting for key")
 	default:
 	}
-
 	for {
 		select {
 		case ev := <-inputComm:
 			return ev.Rune, ev.Key, ev.Err
-
 		case keepAlive := <-waitingForKey:
 			if !keepAlive {
 				return 0, 0, errors.New("operation canceled")

@@ -20,12 +20,12 @@ func MoveDown(n int) string {
 }
 
 // MoveBack returns sequence for move the cursor backward N columns.
-func MoveLeft(n int) string {
-	return fmt.Sprintf("\033[%dD", n)
+func MoveRight(n int) string {
+	return fmt.Sprintf("\033[%dC", n)
 }
 
 // MoveBack returns sequence for move the cursor backward N columns.
-func MoveRight(n int) string {
+func MoveLeft(n int) string {
 	return fmt.Sprintf("\033[%dD", n)
 }
 

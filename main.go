@@ -4,11 +4,11 @@ import (
 	"fmt"
 
 	"github.com/mertcandav/dinogo/input"
-	"github.com/mertcandav/dinogo/terminal"
 )
 
 func main() {
-	terminal.ForegroundByRGB(255, 0, 0)
-	fmt.Println("TEST")
-	_, _ = input.ReadLine()
+	i := input.Init()
+	fmt.Print("What is your name: ")
+	_ = i.Get()
+	fmt.Println(string(i.Runes))
 }
