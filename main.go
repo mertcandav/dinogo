@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 
-	"github.com/mertcandav/dinogo/shell/history"
+	"github.com/mertcandav/dinogo/input"
 )
 
 func main() {
-	h := history.History{Duplicate: true}
-	fmt.Println(h.Get())
+	i := input.Init()
+	fmt.Print("Input: ")
+	i.Get()
+	fmt.Println(string(i.Runes))
 }

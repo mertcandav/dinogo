@@ -20,6 +20,7 @@ func Init() *Input {
 			keyboard.KeyEnter:      ActionEnter,
 			keyboard.KeyArrowLeft:  ActionArrowLeft,
 			keyboard.KeyArrowRight: ActionArrowRight,
+			keyboard.KeyBackspace:  ActionBackspace,
 			keyboard.KeyBackspace2: ActionBackspace,
 			keyboard.KeyHome:       ActionHome,
 			keyboard.KeyEnd:        ActionEnd,
