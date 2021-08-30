@@ -6,7 +6,7 @@ Dinogo is an CLI framework for build terminal and shell applications in Go.
 <h2 id="features">Features</h2>
 
 + Cross Platform
-+ Efficient
++ Fast and efficient
 + Keyboard API
 + Enable/Disable Windows Virtual Terminal Processing
 + Default actions (help, clear, exit...) for your shell
