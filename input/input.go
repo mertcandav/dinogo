@@ -33,6 +33,7 @@ func Init() *Input {
 			keyboard.KeyTab:        ActionTab,
 		},
 		AppendedRune: AppendedRune,
+		Runes:        make([]rune, 0),
 	}
 }
 
@@ -70,7 +71,7 @@ func (i *Input) Get() error {
 
 // Reset runes, positions and other saved positions.
 func (i *Input) Reset() {
-	i.Runes = nil
+	i.Runes = make([]rune, 0)
 	i.Position.Line = 0
 	i.Position.Column = 0
 }
