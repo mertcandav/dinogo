@@ -1,4 +1,9 @@
+//go:build !windows
 // +build !windows
+
+// Copyright 2021.
+// Use of this source code is governed by a MIT
+// license that can be found in the LICENSE file.
 
 // This file contains a simple and incomplete implementation of the terminfo
 // database. Information was taken from the ncurses manpages term(5) and
