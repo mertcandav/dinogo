@@ -11,7 +11,6 @@ func main() {
 	i := input.Init()
 	fmt.Print("Input: ")
 	i.Get()
-	name, y := utils.SplitCommandName(string(i.Runes), " ")
-	fmt.Println(name)
-	fmt.Println("'" + y + "'")
+	args := utils.Args(string(i.Runes), "-", " ")
+	fmt.Println(args)
 }
