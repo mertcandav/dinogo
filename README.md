@@ -23,7 +23,6 @@ Dinogo is an CLI framework for build terminal and shell applications in Go.
 package main
 
 import (
-	"github.com/mertcandav/dinogo/message"
 	"github.com/mertcandav/dinogo/shell"
 	"github.com/mertcandav/dinogo/shell/actions"
 )
@@ -41,12 +40,7 @@ func main() {
 		{Name: "help", Help: "Show help.", Action: actions.Help},
 		{Name: "exit", Help: "Exit shell.", Action: actions.Exit},
 	}
-	for {
-		err := sh.Prompt("Example Shell")
-		if err != nil {
-			message.Errorln(err)
-		}
-	}
+	sh.Loop()
 }
 ```
 

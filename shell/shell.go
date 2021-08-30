@@ -5,19 +5,22 @@ import (
 	"fmt"
 
 	"github.com/mertcandav/dinogo/input"
+	"github.com/mertcandav/dinogo/message"
 	"github.com/mertcandav/dinogo/shell/history"
 	"github.com/mertcandav/dinogo/shell/utils"
 )
 
 // Shell is an interface for CLI command application.
 type Shell struct {
-	Commands []Command
-	Sep      string // Command seperator.
-	Input    *input.Input
-	History  *history.History // Set null if you want not log command history.
-	Prefix   string
+	Commands      []Command
+	PromptMessage string
+	Sep           string // Command seperator.
+	Input         *input.Input
+	History       *history.History // Set null if you want not log command history.
+	Prefix        string
 }
 
+// Init new Shell instance.
 func Init() *Shell {
 	return &Shell{
 		Sep:     " ",
@@ -27,7 +30,18 @@ func Init() *Shell {
 	}
 }
 
+// Loop entire default input loop.
+func (s *Shell) Loop() {
+	for {
+		err := s.Prompt()
+		if err != nil {
+			message.Errorln(err)
+		}
+	}
+}
+
 // GetInput gets input via command line.
+//
 // Returns nil if failed.
 func (s *Shell) GetInput(msg string) []rune {
 	if s.Input == nil {
@@ -41,10 +55,12 @@ func (s *Shell) GetInput(msg string) []rune {
 	return s.Input.Runes
 }
 
-// Prompt gets input with prefix via command line and process input.
+// Prompt gets input with prompt message and prefix
+// via command line and process input.
+//
 // Returns nil if failed.
-func (s *Shell) Prompt(msg string) error {
-	runes := s.GetInput(msg + s.Prefix)
+func (s *Shell) Prompt() error {
+	runes := s.GetInput(s.PromptMessage + s.Prefix)
 	if runes == nil {
 		return nil
 	}
@@ -56,6 +72,13 @@ func (s *Shell) Prompt(msg string) error {
 		s.History.Add(input)
 	}
 	return s.DoCommand(input)
+}
+
+// PromptMsg sets prompt message to specified message
+// and returns input from prompt.
+func (s *Shell) PromptMsg(msg string) error {
+	s.PromptMessage = msg
+	return s.Prompt()
 }
 
 // DoCommand executes command by specified command.
