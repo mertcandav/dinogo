@@ -3,6 +3,20 @@ Dinogo is an CLI framework for build terminal and shell applications in Go.
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mertcandav/dinogo/blob/main/LICENSE)
 
+<h2 id="features">Features</h2>
+
++ Cross Platform
++ Fast and efficient
++ Keyboard API
++ Enable/Disable Windows Virtual Terminal Processing
++ Default actions (help, clear, exit...) for your shell
++ Shell infrastructure
++ Command history infrastructure
++ Input infrastructure (custom actions, key combos...)
++ ANSI Escape Code processor and parser
++ CLI functions (move left, move right, clear screen...)
++ By default supports cursor move on input via command line
+
 <h2 id="example">Example</h2>
 
 ```go
