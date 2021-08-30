@@ -18,6 +18,15 @@ type Shell struct {
 	Prefix   string
 }
 
+func Init() *Shell {
+	return &Shell{
+		Sep:     " ",
+		Prefix:  "$ ",
+		Input:   input.Init(),
+		History: &history.History{},
+	}
+}
+
 // GetInput gets input via command line.
 // Returns nil if failed.
 func (s *Shell) GetInput(msg string) []rune {

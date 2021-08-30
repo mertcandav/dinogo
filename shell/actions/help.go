@@ -11,7 +11,6 @@ import (
 func Help(info shell.CommandActionInfo) {
 	// Margin for between command names and help texts.
 	const margin = 5
-
 	max := 0
 	for _, command := range info.Shell.Commands {
 		length := len(command.Name)
