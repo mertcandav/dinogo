@@ -88,21 +88,16 @@ func ActionCtrlC(_ ActionInfo, _ interface{}) ActionResult {
 // ActionBackspace is default key Backspace action.
 func ActionBackspace(info ActionInfo, _ interface{}) ActionResult {
 	if info.Input.Position.Column > 0 {
-		terminal.MoveLeft(1)
-		terminal.ClearLineCE()
 		part := info.Input.Runes[info.Input.Position.Column:]
 		info.Input.Position.Column--
 		info.Input.Runes = append(
 			info.Input.Runes[:info.Input.Position.Column], part...)
 		part = info.Input.Runes[info.Input.Position.Column:]
-		print(string(part))
-		if info.Input.Position.Column == 0 {
+		terminal.MoveLeft(1)
+		terminal.ClearLineCE()
+		if len(part) > 0 {
+			print(string(part))
 			terminal.MoveLeft(len(part))
-		} else {
-			terminal.MoveLeft(len(part) - 1)
-		}
-		if len(info.Input.Runes) == 0 {
-			terminal.MoveRight(1)
 		}
 		if info.Input.UpdatedRunes != nil {
 			info.Input.UpdatedRunes(info.Input, nil)
