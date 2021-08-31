@@ -5,9 +5,11 @@ import (
 	"fmt"
 
 	"github.com/mertcandav/dinogo/input"
+	"github.com/mertcandav/dinogo/keyboard"
 	"github.com/mertcandav/dinogo/message"
 	"github.com/mertcandav/dinogo/shell/history"
 	"github.com/mertcandav/dinogo/shell/utils"
+	"github.com/mertcandav/dinogo/terminal"
 )
 
 // Shell is an interface for CLI command application.
@@ -20,14 +22,25 @@ type Shell struct {
 	Prefix        string
 }
 
-// Init new Shell instance.
+//  Init returns new instance of Shell.
 func Init() *Shell {
-	return &Shell{
+	shell := &Shell{
 		Sep:     " ",
 		Prefix:  "$ ",
 		Input:   input.Init(),
-		History: &history.History{},
+		History: history.Init(),
 	}
+	shell.Input.UpdatedRunes = func(*input.Input, interface{}) input.ActionResult {
+		shell.History.End()
+		return input.ActionResult{}
+	}
+	shell.Input.Actioning = func(_ *input.Input, tag interface{}) input.ActionResult {
+		tags := tag.([]interface{})
+		return tags[0].(input.Action)(tags[1].(input.ActionInfo), shell)
+	}
+	shell.Input.Actions[keyboard.KeyArrowUp] = historyUp
+	shell.Input.Actions[keyboard.KeyArrowDown] = historyDown
+	return shell
 }
 
 // Loop entire default input loop.
@@ -48,6 +61,7 @@ func (s *Shell) GetInput(msg string) []rune {
 		return nil
 	}
 	fmt.Print(msg)
+	terminal.SavePosition()
 	err := s.Input.Get()
 	if err != nil {
 		return nil
@@ -70,6 +84,7 @@ func (s *Shell) Prompt() error {
 	}
 	if s.History != nil {
 		s.History.Add(input)
+		s.History.End()
 	}
 	return s.DoCommand(input)
 }

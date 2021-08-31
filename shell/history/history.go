@@ -12,17 +12,19 @@ type History struct {
 	Duplicate bool // Let duplicates.
 }
 
+// Init returns new instance of History.
+func Init() *History {
+	return &History{position: -1}
+}
+
 // Start sets position to begin of history.
 func (h *History) Start() {
-	h.position = 0
+	h.position = -1
 }
 
 // End sets position to end of history.
 func (h *History) End() {
 	h.position = len(h.commands) - 1
-	if h.position < 0 {
-		h.position = 0
-	}
 }
 
 // Next sets position to next history.
@@ -38,7 +40,7 @@ func (h *History) Next() bool {
 // Next sets position to previous history.
 // Returns set state.
 func (h *History) Prev() bool {
-	if h.position-1 < 0 {
+	if h.position-1 < -1 {
 		return false
 	}
 	h.position--
@@ -60,7 +62,7 @@ func (h *History) Add(cmd string) bool {
 // Get returns command from history by position.
 // Returns true if exist command, false if not.
 func (h *History) Get() (string, bool) {
-	if len(h.commands) == 0 {
+	if len(h.commands) == 0 || h.position == -1 {
 		return "", false
 	}
 	return h.commands[h.position], true

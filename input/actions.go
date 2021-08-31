@@ -11,7 +11,7 @@ import (
 )
 
 // Action is Input action.
-type Action func(ActionInfo) ActionResult
+type Action func(ActionInfo, interface{}) ActionResult
 
 //ActionInfo is information of input actions.
 type ActionInfo struct {
@@ -26,75 +26,87 @@ type ActionResult struct {
 }
 
 // ActionEnter is default key Enter action.
-func ActionEnter(i ActionInfo) ActionResult {
+func ActionEnter(info ActionInfo, _ interface{}) ActionResult {
 	println()
 	return ActionResult{Stop: true}
 }
 
 // ActionSpace is default key Space action.
-func ActionSpace(i ActionInfo) ActionResult {
-	*i.Rune = ' '
+func ActionSpace(info ActionInfo, _ interface{}) ActionResult {
+	*info.Rune = ' '
 	return ActionResult{}
 }
 
 // ActionTab is default key Tab action.
-func ActionTab(i ActionInfo) ActionResult {
-	*i.Rune = '\t'
+func ActionTab(info ActionInfo, _ interface{}) ActionResult {
+	*info.Rune = '\t'
 	return ActionResult{}
 }
 
 // ActionHome is default key Home action.
-func ActionHome(i ActionInfo) ActionResult {
-	terminal.MoveLeft(i.Input.Position.Column)
-	i.Input.Position.Column = 0
+func ActionHome(info ActionInfo, _ interface{}) ActionResult {
+	terminal.MoveLeft(info.Input.Position.Column)
+	info.Input.Position.Column = 0
 	return ActionResult{Skip: true}
 }
 
 // ActionEnd is default key End action.
-func ActionEnd(i ActionInfo) ActionResult {
-	l := len(i.Input.Runes)
-	if i.Input.Position.Column < l {
-		terminal.MoveRight(l - i.Input.Position.Column)
-		i.Input.Position.Column = l
+func ActionEnd(info ActionInfo, _ interface{}) ActionResult {
+	length := len(info.Input.Runes)
+	if info.Input.Position.Column < length {
+		terminal.MoveRight(length - info.Input.Position.Column)
+		info.Input.Position.Column = length
 	}
 	return ActionResult{Skip: true}
 }
 
 // ActionArrowLeft is default key ArrowLeft action.
-func ActionArrowLeft(i ActionInfo) ActionResult {
-	if i.Input.Position.Column > 0 {
-		i.Input.Position.Column--
+func ActionArrowLeft(info ActionInfo, _ interface{}) ActionResult {
+	if info.Input.Position.Column > 0 {
+		info.Input.Position.Column--
 		terminal.MoveLeft(1)
 	}
 	return ActionResult{Skip: true}
 }
 
 // ActionArrowRight is default key ArrowRight action.
-func ActionArrowRight(i ActionInfo) ActionResult {
-	if i.Input.Position.Column < len(i.Input.Runes) {
-		i.Input.Position.Column++
+func ActionArrowRight(info ActionInfo, _ interface{}) ActionResult {
+	if info.Input.Position.Column < len(info.Input.Runes) {
+		info.Input.Position.Column++
 		terminal.MoveRight(1)
 	}
 	return ActionResult{Skip: true}
 }
 
 // ActionCtrlC is default key Ctrl+C action.
-func ActionCtrlC(i ActionInfo) ActionResult {
+func ActionCtrlC(_ ActionInfo, _ interface{}) ActionResult {
 	println("\nterminated...")
 	os.Exit(0)
 	return ActionResult{}
 }
 
 // ActionBackspace is default key Backspace action.
-func ActionBackspace(i ActionInfo) ActionResult {
-	if i.Input.Position.Column > 0 {
+func ActionBackspace(info ActionInfo, _ interface{}) ActionResult {
+	if info.Input.Position.Column > 0 {
 		terminal.MoveLeft(1)
 		terminal.ClearLineCE()
-		part := i.Input.Runes[i.Input.Position.Column:]
-		i.Input.Runes = append(i.Input.Runes[:i.Input.Position.Column-1], part...)
+		part := info.Input.Runes[info.Input.Position.Column:]
+		info.Input.Position.Column--
+		info.Input.Runes = append(
+			info.Input.Runes[:info.Input.Position.Column], part...)
+		part = info.Input.Runes[info.Input.Position.Column:]
 		print(string(part))
-		i.Input.Position.Column--
-		terminal.MoveLeft(len(part) - 1)
+		if info.Input.Position.Column == 0 {
+			terminal.MoveLeft(len(part))
+		} else {
+			terminal.MoveLeft(len(part) - 1)
+		}
+		if len(info.Input.Runes) == 0 {
+			terminal.MoveRight(1)
+		}
+		if info.Input.UpdatedRunes != nil {
+			info.Input.UpdatedRunes(info.Input, nil)
+		}
 	}
 	return ActionResult{Skip: true}
 }

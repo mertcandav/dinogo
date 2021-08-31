@@ -14,7 +14,9 @@ type Input struct {
 	Actions      map[keyboard.Key]Action
 	Runes        []rune            // Getted runes.
 	Position     terminal.Position // Position.
+	Actioning    Event
 	AppendedRune Event
+	UpdatedRunes Event
 }
 
 // Init new Input instance.
@@ -33,6 +35,7 @@ func Init() *Input {
 			keyboard.KeyTab:        ActionTab,
 		},
 		AppendedRune: AppendedRune,
+		Actioning:    Actioning,
 		Runes:        make([]rune, 0),
 	}
 }
@@ -47,10 +50,10 @@ func (i *Input) Get() error {
 		}
 		action, ok := i.Actions[key]
 		if ok {
-			result := action(ActionInfo{
+			result := i.Actioning(i, []interface{}{action, ActionInfo{
 				Input: i,
 				Rune:  &r,
-			})
+			}})
 			if result.Stop {
 				break
 			} else if result.Skip {
@@ -63,7 +66,10 @@ func (i *Input) Get() error {
 		i.Runes = append(i.Runes[:i.Position.Column],
 			append([]rune{r}, i.Runes[i.Position.Column:]...)...)
 		if i.AppendedRune != nil {
-			i.AppendedRune(i)
+			i.AppendedRune(i, nil)
+		}
+		if i.UpdatedRunes != nil {
+			i.UpdatedRunes(i, nil)
 		}
 	}
 	return nil
