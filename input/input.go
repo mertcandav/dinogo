@@ -33,6 +33,7 @@ func Init() *Input {
 			keyboard.KeyCtrlC:      ActionCtrlC,
 			keyboard.KeySpace:      ActionSpace,
 			keyboard.KeyTab:        ActionTab,
+			keyboard.KeyDelete:     ActionDelete,
 		},
 		AppendedRune: AppendedRune,
 		Actioning:    Actioning,

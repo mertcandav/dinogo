@@ -105,3 +105,22 @@ func ActionBackspace(info ActionInfo, _ interface{}) ActionResult {
 	}
 	return ActionResult{Skip: true}
 }
+
+// ActionDelete is default key Delete action.
+func ActionDelete(info ActionInfo, _ interface{}) ActionResult {
+	if info.Input.Position.Column < len(info.Input.Runes) {
+		part := info.Input.Runes[info.Input.Position.Column+1:]
+		info.Input.Runes = append(
+			info.Input.Runes[:info.Input.Position.Column], part...)
+		part = info.Input.Runes[info.Input.Position.Column:]
+		terminal.ClearLineCE()
+		if len(part) > 0 {
+			print(string(part))
+			terminal.MoveLeft(len(part))
+		}
+		if info.Input.UpdatedRunes != nil {
+			info.Input.UpdatedRunes(info.Input, nil)
+		}
+	}
+	return ActionResult{Skip: true}
+}
