@@ -66,6 +66,10 @@ func (s *Shell) GetInput(msg string) []rune {
 	if err != nil {
 		return nil
 	}
+	if s.History != nil {
+		s.History.Add(string(s.Input.Runes))
+		s.History.End()
+	}
 	return s.Input.Runes
 }
 
@@ -81,10 +85,6 @@ func (s *Shell) Prompt() error {
 	input := string(runes)
 	if input == "" {
 		return nil
-	}
-	if s.History != nil {
-		s.History.Add(input)
-		s.History.End()
 	}
 	return s.DoCommand(input)
 }
