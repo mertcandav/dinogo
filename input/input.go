@@ -17,11 +17,12 @@ type Input struct {
 	Actioning    Event
 	AppendedRune Event
 	UpdatedRunes Event
+	PrintText    Event
 }
 
 // Init new Input instance.
-func Init() *Input {
-	return &Input{
+func Init(config uint8) *Input {
+	input := &Input{
 		Actions: map[keyboard.Key]Action{
 			keyboard.KeyEnter:      ActionEnter,
 			keyboard.KeyArrowLeft:  ActionArrowLeft,
@@ -36,9 +37,23 @@ func Init() *Input {
 			keyboard.KeyDelete:     ActionDelete,
 		},
 		AppendedRune: AppendedRune,
+		UpdatedRunes: nil,
 		Actioning:    Actioning,
 		Runes:        make([]rune, 0),
 	}
+	switch config {
+	case Password:
+		input.PrintText = func(_ *Input, tag interface{}) ActionResult {
+			runes := tag.([]rune)
+			for range runes {
+				print("●")
+			}
+			return ActionResult{Tag: string(runes)}
+		}
+	default:
+		input.PrintText = PrintText
+	}
+	return input
 }
 
 // Get reads line from command line.

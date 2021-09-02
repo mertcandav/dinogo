@@ -13,6 +13,7 @@ Dinogo is an CLI framework for build terminal and shell applications in Go.
 + Shell infrastructure
 + Command history infrastructure
 + Input infrastructure (custom actions, key combos...)
++ Input schemes (classic, password...)
 + ANSI Escape Code processor and parser
 + CLI functions (move left, move right, clear screen...)
 + By default supports cursor move on input via command line

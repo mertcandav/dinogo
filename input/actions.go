@@ -23,6 +23,7 @@ type ActionInfo struct {
 type ActionResult struct {
 	Stop bool // Stop get.
 	Skip bool // Skip rune append.
+	Tag  interface{}
 }
 
 // ActionEnter is default key Enter action.
@@ -96,8 +97,8 @@ func ActionBackspace(info ActionInfo, _ interface{}) ActionResult {
 		terminal.MoveLeft(1)
 		terminal.ClearLineCE()
 		if len(part) > 0 {
-			print(string(part))
-			terminal.MoveLeft(len(part))
+			terminal.MoveLeft(
+				len(info.Input.PrintText(info.Input, part).Tag.(string)))
 		}
 		if info.Input.UpdatedRunes != nil {
 			info.Input.UpdatedRunes(info.Input, nil)
@@ -115,8 +116,8 @@ func ActionDelete(info ActionInfo, _ interface{}) ActionResult {
 		part = info.Input.Runes[info.Input.Position.Column:]
 		terminal.ClearLineCE()
 		if len(part) > 0 {
-			print(string(part))
-			terminal.MoveLeft(len(part))
+			terminal.MoveLeft(
+				len(info.Input.PrintText(info.Input, part).Tag.(string)))
 		}
 		if info.Input.UpdatedRunes != nil {
 			info.Input.UpdatedRunes(info.Input, nil)

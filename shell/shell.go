@@ -27,7 +27,7 @@ func Init() *Shell {
 	shell := &Shell{
 		Sep:     " ",
 		Prefix:  "$ ",
-		Input:   input.Init(),
+		Input:   input.Init(input.Classic),
 		History: history.Init(),
 	}
 	shell.Input.UpdatedRunes = func(*input.Input, interface{}) input.ActionResult {
