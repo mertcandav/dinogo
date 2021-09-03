@@ -21,19 +21,29 @@ func Actioning(i *Input, tag interface{}) ActionResult {
 func AppendedRune(i *Input, _ interface{}) ActionResult {
 	terminal.ClearLineCE()
 	part := i.Runes[i.Position.Column:]
-	text := i.PrintText(i, part).Tag
-	if text != "" {
-		i.Position.Column += len(part)
-		terminal.MoveLeft(i.Position.Column + len(part) - 1)
+	runes := i.PrintText(i, part).Tag.([]rune)
+	if len(runes) > 0 {
+		i.Position.Column++
+		terminal.MoveLeft(i.Position.Column + len(runes) - 1)
 		terminal.MoveRight(i.Position.Column)
 	}
 	return ActionResult{}
 }
 
-// AppendedRune is default AppendedRune event.
-// Tag is should be []rune and event returns printed string.
+// PrintText is default PrintText event.
+// Tag is should be []rune and event returns printed []rune.
 func PrintText(_ *Input, tag interface{}) ActionResult {
 	text := string(tag.([]rune))
 	print(text)
-	return ActionResult{Tag: text}
+	return ActionResult{Tag: tag}
+}
+
+// PrintTextPassword is default PrintText event for password config.
+// Tag is should be []rune and event returns printed []rune.
+func PrintTextPassword(_ *Input, tag interface{}) ActionResult {
+	runes := tag.([]rune)
+	for range runes {
+		print("●")
+	}
+	return ActionResult{Tag: runes}
 }

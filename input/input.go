@@ -43,13 +43,7 @@ func Init(config uint8) *Input {
 	}
 	switch config {
 	case Password:
-		input.PrintText = func(_ *Input, tag interface{}) ActionResult {
-			runes := tag.([]rune)
-			for range runes {
-				print("●")
-			}
-			return ActionResult{Tag: string(runes)}
-		}
+		input.PrintText = PrintTextPassword
 	default:
 		input.PrintText = PrintText
 	}

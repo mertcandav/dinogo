@@ -98,7 +98,7 @@ func ActionBackspace(info ActionInfo, _ interface{}) ActionResult {
 		terminal.ClearLineCE()
 		if len(part) > 0 {
 			terminal.MoveLeft(
-				len(info.Input.PrintText(info.Input, part).Tag.(string)))
+				len(info.Input.PrintText(info.Input, part).Tag.([]rune)))
 		}
 		if info.Input.UpdatedRunes != nil {
 			info.Input.UpdatedRunes(info.Input, nil)
@@ -117,7 +117,7 @@ func ActionDelete(info ActionInfo, _ interface{}) ActionResult {
 		terminal.ClearLineCE()
 		if len(part) > 0 {
 			terminal.MoveLeft(
-				len(info.Input.PrintText(info.Input, part).Tag.(string)))
+				len(info.Input.PrintText(info.Input, part).Tag.([]rune)))
 		}
 		if info.Input.UpdatedRunes != nil {
 			info.Input.UpdatedRunes(info.Input, nil)
