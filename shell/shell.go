@@ -3,6 +3,7 @@ package shell
 import (
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/mertcandav/dinogo/input"
 	"github.com/mertcandav/dinogo/keyboard"
@@ -15,26 +16,37 @@ import (
 // Shell is an interface for CLI command application.
 type Shell struct {
 	historyOrigin bool
+	completeIndex int
 
 	Commands      []Command
 	PromptMessage string
-	Sep           string // Command seperator.
-	Input         *input.Input
-	History       *history.History // Set null if you want not log command history.
+	// Command seperator.
+	Sep   string
+	Input *input.Input
+	// Set null if you want not log command history.
+	History *history.History
+	// Complete input by command history.
+	InputComplete bool
 	Prefix        string
 }
 
 //  Init returns new instance of Shell.
 func Init() *Shell {
 	shell := &Shell{
-		Sep:     " ",
-		Prefix:  "$ ",
-		Input:   input.Init(input.Classic),
-		History: &history.History{},
+		completeIndex: -1,
+
+		Sep:           " ",
+		Prefix:        "> ",
+		Input:         input.Init(input.Classic),
+		History:       &history.History{},
+		InputComplete: true,
 	}
 	shell.Input.UpdatedRunes = func(*input.Input, interface{}) input.ActionResult {
-		shell.History.End()
-		shell.historyOrigin = true
+		if shell.History != nil {
+			shell.History.End()
+			shell.historyOrigin = true
+			shell.complete()
+		}
 		return input.ActionResult{}
 	}
 	shell.Input.Actioning = func(_ *input.Input, tag interface{}) input.ActionResult {
@@ -43,6 +55,7 @@ func Init() *Shell {
 	}
 	shell.Input.Actions[keyboard.KeyArrowUp] = historyUp
 	shell.Input.Actions[keyboard.KeyArrowDown] = historyDown
+	shell.Input.Actions[keyboard.KeyCtrlD] = completeCommand
 	return shell
 }
 
@@ -114,4 +127,37 @@ func (s *Shell) DoCommand(cmd string) error {
 		return nil
 	}
 	return errors.New("command is not found: '" + commandName + "'")
+}
+
+// Complete complates input.
+func (s *Shell) complete() {
+	text := string(s.Input.Runes)
+	s.completeIndex = -1
+	if text == "" {
+		terminal.ClearLineCE()
+		return
+	}
+	step := len(s.Input.Runes) - s.Input.Position.Column
+	terminal.HideCursor()
+	defer terminal.ShowCursor()
+	for index, command := range s.History.History() {
+		if command != text && strings.HasPrefix(command, text) {
+			terminal.ForegroundByRGB(100, 100, 100)
+			if step > 0 {
+				terminal.MoveRight(step)
+			}
+			text = command[len(text):]
+			print(text)
+			terminal.Reset()
+			terminal.MoveLeft(len(text))
+			if step > 0 {
+				terminal.MoveLeft(step)
+			}
+			s.completeIndex = index
+			return
+		}
+	}
+	terminal.MoveRight(step)
+	terminal.ClearLineCE()
+	terminal.MoveLeft(step)
 }

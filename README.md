@@ -9,11 +9,12 @@ Dinogo is an CLI framework for build shell, terminal and command line applicatio
 + Fast and efficient
 + Keyboard API
 + Enable/Disable Windows Virtual Terminal Processing
-+ Default actions (help, clear, exit...) for your shell
-+ Shell infrastructure
-+ Command history infrastructure
 + Input infrastructure (custom actions, key combos...)
 + Input profiles (classic, password...)
++ Shell infrastructure
++ Default actions (help, clear, exit...) for your shell
++ Command history infrastructure
++ Auto command complete support for your shell
 + ANSI escape code processor and parser
 + CLI functions (move left, move right, clear screen...)
 + By default supports cursor move on input via command line

@@ -13,10 +13,10 @@ func historyUp(info input.ActionInfo, tag interface{}) input.ActionResult {
 		sh.Input.Runes = []rune(command)
 		info.Input.Position.Column = len(info.Input.Runes)
 		terminal.HideCursor()
+		defer terminal.ShowCursor()
 		terminal.RestorePosition()
 		terminal.ClearLineCE()
 		print(command)
-		terminal.ShowCursor()
 		sh.historyOrigin = false
 	}
 	return input.ActionResult{Skip: true}
@@ -26,6 +26,7 @@ func historyDown(info input.ActionInfo, tag interface{}) input.ActionResult {
 	sh := tag.(*Shell)
 	if sh.History != nil && !sh.historyOrigin {
 		terminal.HideCursor()
+		defer terminal.ShowCursor()
 		terminal.RestorePosition()
 		terminal.ClearLineCE()
 		if sh.History.Next() {
@@ -38,7 +39,6 @@ func historyDown(info input.ActionInfo, tag interface{}) input.ActionResult {
 			info.Input.Position.Column = 0
 			sh.historyOrigin = true
 		}
-		terminal.ShowCursor()
 	}
 	return input.ActionResult{Skip: true}
 }
