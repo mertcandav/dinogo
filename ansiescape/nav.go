@@ -54,8 +54,3 @@ func SetColumn(n int) string {
 func SetPosition(line, column int) string {
 	return fmt.Sprintf("\033[%d;%dH", line, column)
 }
-
-// SetTitle returns sequence for set title of window.
-func SetTitle(title string) string {
-	return fmt.Sprintf("\033]0;%s\007", title)
-}

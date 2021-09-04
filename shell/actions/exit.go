@@ -8,6 +8,4 @@ import (
 
 // Exit is default action for your shell instance.
 // Exit program.
-func Exit(info shell.CommandActionInfo) {
-	os.Exit(0)
-}
+func Exit(info shell.CommandActionInfo) { os.Exit(0) }

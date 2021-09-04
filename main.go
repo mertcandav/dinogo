@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/mertcandav/dinogo/input"
 	"github.com/mertcandav/dinogo/shell"
 	"github.com/mertcandav/dinogo/shell/actions"
 )
@@ -12,7 +11,6 @@ func about(shell.CommandActionInfo) {
 
 func main() {
 	sh := shell.Init()
-	sh.Input.PrintText = input.PrintTextPassword
 	sh.Commands = []shell.Command{
 		{Name: "clear", Help: "Clear entire screen.", Action: actions.Clear},
 		{Name: "about", Help: "Show about this shell.", Action: about},

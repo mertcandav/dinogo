@@ -9,9 +9,7 @@ import (
 )
 
 // Reset resets font.
-func Reset() {
-	print(ansiescape.ResetFont)
-}
+func Reset() { print(ansiescape.ResetFont) }
 
 // ForegroundByRGB sets foreground by R, G and B values.
 func ForegroundByRGB(r, g, b byte) {

@@ -7,31 +7,19 @@ package terminal
 import "github.com/mertcandav/dinogo/ansiescape"
 
 // Clear clears entire screen.
-func Clear() {
-	print(ansiescape.ClearScreen)
-}
+func Clear() { print(ansiescape.ClearScreen) }
 
 // ClearCB clears from cursor to beginning of screen.
-func ClearCB() {
-	print(ansiescape.ClearLineCB)
-}
+func ClearCB() { print(ansiescape.ClearLineCB) }
 
 // ClearCE clears from cursor until end of screen.
-func ClearCE() {
-	print(ansiescape.ClearLineCE)
-}
+func ClearCE() { print(ansiescape.ClearLineCE) }
 
 // ClearLine clears entire line.
-func ClearLine() {
-	print(ansiescape.ClearLine)
-}
+func ClearLine() { print(ansiescape.ClearLine) }
 
 // ClearLineCB clears from cursor to start of line.
-func ClearLineCB() {
-	print(ansiescape.ClearLineCB)
-}
+func ClearLineCB() { print(ansiescape.ClearLineCB) }
 
 // ClearLineCE clears from cursor to end of line.
-func ClearLineCE() {
-	print(ansiescape.ClearLineCE)
-}
+func ClearLineCE() { print(ansiescape.ClearLineCE) }

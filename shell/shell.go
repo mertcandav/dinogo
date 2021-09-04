@@ -14,6 +14,8 @@ import (
 
 // Shell is an interface for CLI command application.
 type Shell struct {
+	historyOrigin bool
+
 	Commands      []Command
 	PromptMessage string
 	Sep           string // Command seperator.
@@ -28,10 +30,11 @@ func Init() *Shell {
 		Sep:     " ",
 		Prefix:  "$ ",
 		Input:   input.Init(input.Classic),
-		History: history.Init(),
+		History: &history.History{},
 	}
 	shell.Input.UpdatedRunes = func(*input.Input, interface{}) input.ActionResult {
 		shell.History.End()
+		shell.historyOrigin = true
 		return input.ActionResult{}
 	}
 	shell.Input.Actioning = func(_ *input.Input, tag interface{}) input.ActionResult {
