@@ -1,5 +1,5 @@
 # dinogo
-Dinogo is an CLI framework for build terminal and shell applications in Go.
+Dinogo is an CLI framework for build shell, terminal and command line applications in Go.
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mertcandav/dinogo/blob/main/LICENSE)
 
@@ -13,8 +13,8 @@ Dinogo is an CLI framework for build terminal and shell applications in Go.
 + Shell infrastructure
 + Command history infrastructure
 + Input infrastructure (custom actions, key combos...)
-+ Input schemes (classic, password...)
-+ ANSI Escape Code processor and parser
++ Input profiles (classic, password...)
++ ANSI escape code processor and parser
 + CLI functions (move left, move right, clear screen...)
 + By default supports cursor move on input via command line
 
@@ -54,8 +54,7 @@ To contribute, please read the contribution guidelines from [here](https://githu
 All contributions to Dinogo, no matter how small or large, are welcome. <br>
 From a simple typo correction to a contribution to the code, all contributions are welcome and appreciated.
 
-
 <h2 id="license">License</h2>
 
-Fract and standard library is distributed under the terms of the MIT license. <br>
+Dinogo is distributed under the terms of the MIT license. <br>
 [See license details.](https://github.com/mertcandav/dinogo/blob/main/LICENSE)
