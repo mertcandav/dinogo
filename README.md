@@ -3,6 +3,17 @@ Dinogo is an CLI framework for build shell, terminal and command line applicatio
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mertcandav/dinogo/blob/main/LICENSE)
 
+## Table of Contents
+<div class="toc">
+  <ul>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#example_shell_application">Example Shell Application</a></li>
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+  </ul>
+</div>
+
 <h2 id="features">Features</h2>
 
 + Cross Platform
@@ -15,11 +26,11 @@ Dinogo is an CLI framework for build shell, terminal and command line applicatio
 + Default actions (help, clear, exit...) for your shell
 + Command history infrastructure
 + Auto command complete support for your shell
-+ ANSI escape code processor and parser
++ ANSI escape codes and parser
 + CLI functions (move left, move right, clear screen...)
 + By default supports cursor move on input via command line
 
-<h2 id="example">Example</h2>
+<h2 id="example_shell_application">Example Shell Application</h2>
 
 ```go
 package main
@@ -46,7 +57,16 @@ func main() {
 }
 ```
 
-<h2 id="goals">Contributing</h2>
+<h2 id="packages">Packages</h2>
+
++ ``ansiescape/`` ANSI escape code constants and parser.
++ ``input/`` Input infrastructure for command line inputs.
++ ``keyboard/`` Keyboard API.
++ ``message/`` Message templates for print.
++ ``shell/`` Shell infrastructure.
++ ``terminal/`` CLI functions and tools.
+
+<h2 id="contributing">Contributing</h2>
 Thanks for you want contributing to Dinogo!
 
 The Dinogo project use issues for only bug reports and proposals. <br>
