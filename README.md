@@ -2,6 +2,7 @@
 Dinogo is an CLI framework for build shell, terminal and command line applications in Go.
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mertcandav/dinogo/blob/main/LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/mertcandav/dinogo)](https://goreportcard.com/report/github.com/mertcandav/dinogo)
 
 ## Table of Contents
 <div class="toc">
