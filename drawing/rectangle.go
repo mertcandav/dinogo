@@ -15,6 +15,8 @@ type Rectangle struct {
 }
 
 // Draw to screen.
+//
+// Resets terminal font after drawing.
 func (r Rectangle) Draw(pen Pen) {
 	terminal.SetPosition(r.Position.Y, r.Position.X)
 	if r.Height < 1 {
@@ -56,6 +58,8 @@ func (r Rectangle) Draw(pen Pen) {
 }
 
 // Fill to screen.
+//
+// Resets terminal font after drawing.
 func (r Rectangle) Fill(color RGB) {
 	terminal.SetPosition(r.Position.Y, r.Position.X)
 	terminal.BackgroundByRGB(color.Red, color.Green, color.Blue)

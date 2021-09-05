@@ -20,7 +20,7 @@ type Shell struct {
 
 	Commands      []Command
 	PromptMessage string
-	// Command seperator.
+	// Command separator.
 	Sep   string
 	Input *input.Input
 	// Set null if you want not log command history.
