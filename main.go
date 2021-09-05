@@ -5,7 +5,7 @@ import (
 	"github.com/mertcandav/dinogo/shell/actions"
 )
 
-func about(shell.CommandActionInfo) {
+func about(_ shell.CommandActionInfo) {
 	println("This shell is example for Dinogo framework.")
 }
 

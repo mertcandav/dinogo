@@ -22,6 +22,7 @@ Dinogo is an CLI framework for build shell, terminal and command line applicatio
 + Enable/Disable Windows Virtual Terminal Processing
 + Input infrastructure (custom actions, key combos...)
 + Input profiles (classic, password...)
++ Drawing tools
 + Shell infrastructure
 + Default actions (help, clear, exit...) for your shell
 + Command history infrastructure
@@ -40,7 +41,7 @@ import (
 	"github.com/mertcandav/dinogo/shell/actions"
 )
 
-func about(shell.CommandActionInfo) {
+func about(_ shell.CommandActionInfo) {
 	println("This shell is example for Dinogo framework.")
 }
 
@@ -60,6 +61,7 @@ func main() {
 <h2 id="packages">Packages</h2>
 
 + ``ansiescape/`` ANSI escape code constants and parser.
++ ``drawing/`` Drawing tools.
 + ``input/`` Input infrastructure for command line inputs.
 + ``keyboard/`` Keyboard API.
 + ``message/`` Message templates for print.
