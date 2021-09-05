@@ -9,3 +9,6 @@ type Position struct {
 	Line   int
 	Column int
 }
+
+// Set cursor position by values.
+func (p *Position) Set() { SetPosition(p.Line, p.Column) }
