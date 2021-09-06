@@ -68,7 +68,7 @@ func (c Circle) Fill(color RGB) {
 		}
 		sb.WriteByte('\n')
 	}
-	//	terminal.SetPosition(c.Position.Y, c.Position.X)
+	terminal.SetPosition(c.Position.Y, c.Position.X)
 	terminal.BackgroundByRGB(color.Red, color.Green, color.Blue)
 	print(sb.String()[:sb.Len()-1] /* Remove unnecessary line from end */)
 	terminal.Reset()
