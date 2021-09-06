@@ -18,8 +18,7 @@ type Rectangle struct {
 //
 // Resets terminal font after drawing.
 func (r Rectangle) Draw(pen Pen) {
-	terminal.SetPosition(r.Position.Y, r.Position.X)
-	if r.Height < 1 {
+	if r.Width < 1 || r.Height < 1 {
 		return
 	}
 	var sb strings.Builder
@@ -53,6 +52,8 @@ func (r Rectangle) Draw(pen Pen) {
 		}
 		sb.WriteRune(pen.Mark)
 	}
+	terminal.SetPosition(r.Position.Y, r.Position.X)
+	terminal.ForegroundByRGB(pen.Color.Red, pen.Color.Green, pen.Color.Blue)
 	print(sb.String())
 	terminal.Reset()
 }
@@ -61,8 +62,6 @@ func (r Rectangle) Draw(pen Pen) {
 //
 // Resets terminal font after drawing.
 func (r Rectangle) Fill(color RGB) {
-	terminal.SetPosition(r.Position.Y, r.Position.X)
-	terminal.BackgroundByRGB(color.Red, color.Green, color.Blue)
 	var sb strings.Builder
 	for r.Height > 0 {
 		r.Height--
@@ -73,6 +72,8 @@ func (r Rectangle) Fill(color RGB) {
 		}
 		sb.WriteString("\n" + ansiescape.SetColumn(r.Position.X))
 	}
+	terminal.SetPosition(r.Position.Y, r.Position.X)
+	terminal.BackgroundByRGB(color.Red, color.Green, color.Blue)
 	print(sb.String())
 	terminal.Reset()
 }
