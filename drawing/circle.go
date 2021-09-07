@@ -26,8 +26,8 @@ func (c Circle) Draw(pen Pen) {
 	height := int(c.Height)
 	width := int(c.Width)
 	fudge := .8
-	for y := 1; y <= height*2+1; y++ {
-		for x := 1; x <= width*2+1; x++ {
+	for y := 1; y <= height<<2+1; y++ {
+		for x := 1; x <= width<<2+1; x++ {
 			cy := math.Abs(float64(height - y + 1))
 			cx := math.Abs(float64(width - x + 1))
 			cr := int(math.Floor(math.Sqrt((cx*cx)+(cy*cy)) + fudge))
@@ -55,8 +55,8 @@ func (c Circle) Fill(color RGB) {
 	width := int(c.Width)
 	fudge := .8
 	moveRight := ansiescape.MoveRight(2)
-	for y := 1; y <= height*2+1; y++ {
-		for x := 1; x <= width*2+1; x++ {
+	for y := 1; y <= height<<1+1; y++ {
+		for x := 1; x <= width<<1+1; x++ {
 			cy := math.Abs(float64(height - y + 1))
 			cx := math.Abs(float64(width - x + 1))
 			cr := int(math.Floor(math.Sqrt((cx*cx)+(cy*cy)) + fudge))
